@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 
-import kotlinx.android.synthetic.main.activity_launch.*
+import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
 class DetailActivity : AppCompatActivity() {
