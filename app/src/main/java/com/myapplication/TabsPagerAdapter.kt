@@ -1,29 +1,17 @@
 package com.myapplication
 
-import android.content.Context
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import timber.log.Timber
 
-class TabsPagerAdapter(manager: FragmentManager, private val context: Context, private val numTabs: Int) : FragmentPagerAdapter(manager) {
+class TabsPagerAdapter(fragment: Fragment, private val numTabs: Int)
+    : FragmentStateAdapter(fragment) {
 
-    override fun getItem(position: Int): Fragment {
-        val isTablet = context.resources?.getBoolean(R.bool.isTablet) ?: false
-        return if(isTablet)
-            MasterDetailHostFragment.newInstance(getReadableTabPosition(position))
-        else
-            MasterHostFragment.newInstance(getReadableTabPosition(position))
-    }
+    override fun getItemCount(): Int = numTabs
 
-    override fun getCount(): Int {
-        return numTabs
-    }
+    override fun createFragment(position: Int): Fragment {
+        Timber.d("createFragment: $position")
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return String.format(context.getString(R.string.cat_tab_item_label), getReadableTabPosition(position))
-    }
-
-    private fun getReadableTabPosition(position: Int): Int {
-        return position + 1
+        return MasterDetailHostFragment.newInstance(position + 1)
     }
 }

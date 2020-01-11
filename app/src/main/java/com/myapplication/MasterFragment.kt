@@ -9,16 +9,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_master.view.*
+import timber.log.Timber
 
 
 class MasterFragment : Fragment() {
 
-    val args by navArgs<MasterFragmentArgs>()
+    // Must NOT be private! Args passing will fail otherwise
+    val args: MasterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView, args: $args")
+
         val rootView = inflater.inflate(R.layout.fragment_master, container, false)
 
         rootView.master_text.text = "Master view, tab number: ${args.tabNumber}"
@@ -26,30 +30,28 @@ class MasterFragment : Fragment() {
         return rootView
     }
 
-    fun openDetail(){
+    fun openDetail() {
 
         val isTablet = context?.resources?.getBoolean(R.bool.isTablet) ?: false
-        when{
-            //On tablets, replace the detail fragment with a new-arg'd fragment
-            //On phones, launch a new detail activity
-            isTablet -> swapDetailFragment()
-            else -> findNavController().navigate(MasterFragmentDirections.showDetailsFromMaster(args.tabNumber, "I am on a phone"))
+
+        if (isTablet) {
+            // On tablets, replace the detail fragment with a new-arg'd fragment
+            swapDetailFragment()
+        } else {
+            // On phones, launch a new detail activity
+            findNavController().navigate(
+                MasterFragmentDirections.showDetailsFromMaster(args.tabNumber, "I am on a phone")
+            )
         }
     }
 
     private fun swapDetailFragment() {
-        parentFragment?.let {
-            val detail = it.fragmentManager?.findFragmentById(R.id.detail_nav_fragment) as NavHostFragment?
-            if (detail != null) {
-                val navController = detail.navController
-                val navInflater = navController.navInflater
-                val graph = navInflater.inflate(R.navigation.detail)
+        val forwardedArguments = args.toBundle()
+        forwardedArguments.putString("some_extra_info", "I am on a tablet")
+        Timber.d("Args: $forwardedArguments")
 
-                //Override the arguments here with whatever we need to produce this detail fragment
-                val forwardedArguments = args.toBundle()
-                forwardedArguments.putString("some_extra_info", "I am on a tablet")
-                detail.navController.setGraph(graph, forwardedArguments)
-            }
-        }
+        val detail = parentFragment?.fragmentManager?.findFragmentById(R.id.detail_nav_fragment) as NavHostFragment?
+        // Override the arguments here with whatever we need to produce this detail fragment
+        detail?.navController?.setGraph(R.navigation.detail, forwardedArguments)
     }
 }

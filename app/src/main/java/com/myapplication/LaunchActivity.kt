@@ -1,11 +1,7 @@
 package com.myapplication
 
 import android.os.Bundle
-import android.os.Handler
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
-
-import kotlinx.android.synthetic.main.activity_launch.*
+import androidx.appcompat.app.AppCompatActivity
 
 class LaunchActivity : AppCompatActivity() {
 

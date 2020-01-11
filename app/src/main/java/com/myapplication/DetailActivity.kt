@@ -8,25 +8,22 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 
 import kotlinx.android.synthetic.main.activity_launch.*
+import timber.log.Timber
 
 class DetailActivity : AppCompatActivity() {
 
-    val args by navArgs<DetailActivityArgs>()
+    val args: DetailActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("onCreate")
+
         setContentView(R.layout.activity_detail)
 
-        //This is a programmatic nav fragment derived for portrait phones,
-        //and requires manually setting the nav graph to forward the arguments
+        // This is a programmatic nav fragment derived for portrait phones,
+        // and requires manually setting the nav graph to forward the arguments
         val detail = supportFragmentManager.findFragmentById(R.id.detail_nav_fragment) as NavHostFragment?
-        if(detail != null){
-            val navController = detail.navController
-            val navInflater = navController.navInflater
-            val graph = navInflater.inflate(R.navigation.detail)
-
-            detail.navController.setGraph(graph, args.toBundle())
-        }
+        detail?.navController?.setGraph(R.navigation.detail, args.toBundle())
     }
 
 }

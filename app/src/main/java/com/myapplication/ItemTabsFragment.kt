@@ -5,28 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_tabs.view.*
+import timber.log.Timber
 
 
 class ItemTabsFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_tabs, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Timber.d("onCreateView")
 
-        val adapter = context?.let { it -> TabsPagerAdapter(childFragmentManager, it, 3) }
-        rootView.viewpager.adapter = adapter
-        rootView.tab_layout.setupWithViewPager(rootView.viewpager)
+        val rootView = inflater.inflate(R.layout.fragment_tabs, container,false)
 
-        for (i in 0 until rootView.tab_layout.tabCount) {
-            when (i) {
-                0 -> rootView.tab_layout.getTabAt(i)!!.text = "TAB 1"
-                1 -> rootView.tab_layout.getTabAt(i)!!.text = "TAB 2"
-                2 -> rootView.tab_layout.getTabAt(i)!!.text = "TAB 3"
-            }
-        }
+        rootView.viewpager.adapter = TabsPagerAdapter(this,3)
+
+        TabLayoutMediator(rootView.tab_layout, rootView.viewpager) { tab, pos ->
+            tab.text = "TAB ${pos + 1}"
+        }.attach()
 
         return rootView
     }
