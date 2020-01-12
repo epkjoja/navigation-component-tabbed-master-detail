@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/tabs_fragment"
-        android:name="com.myapplication.ItemTabsFragment"
+        android:name="com.myapplication.fragment.ItemTabsFragment"
         android:label="ItemTabsFragment">
 
         <argument
@@ -14,5 +14,17 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="com.myapplication.fragment.DetailFragment"
+        android:label="DetailFragment">
+
+        <argument
+            android:name="tab_number"
+            app:argType="integer" />
+        <argument
+            android:name="some_extra_info"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

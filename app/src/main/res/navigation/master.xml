@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/master_fragment"
-        android:name="com.myapplication.MasterFragment"
+        android:name="com.myapplication.fragment.MasterFragment"
         android:label="MasterFragment">
 
         <argument
@@ -26,7 +26,7 @@
     <!-- This is used for portrait phones to get an explicit detail view -->
     <activity
         android:id="@+id/detail_activity"
-        android:name="com.myapplication.DetailActivity"
+        android:name="com.myapplication.activity.DetailActivity"
         android:label="DetailActivity">
 
         <argument

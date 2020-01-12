@@ -1,4 +1,4 @@
-package com.myapplication
+package com.myapplication.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.myapplication.R
 import kotlinx.android.synthetic.main.fragment_tabs.view.*
 import timber.log.Timber
 

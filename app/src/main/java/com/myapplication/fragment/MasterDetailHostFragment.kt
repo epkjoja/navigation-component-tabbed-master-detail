@@ -1,11 +1,13 @@
-package com.myapplication
+package com.myapplication.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.myapplication.R
 import timber.log.Timber
 
 
@@ -17,11 +19,9 @@ class MasterDetailHostFragment : Fragment() {
         Timber.d("onCreateView - isTablet: $isTablet")
 
         val rootView = if (isTablet)
-            inflater.inflate(R.layout.fragment_master_detail_host, container,false)
+            inflater.inflate(R.layout.fragment_host_two_pane, container,false)
         else
-            inflater.inflate(R.layout.fragment_master_host, container,false)
-
-        // Timber.d("Args: $arguments")
+            inflater.inflate(R.layout.fragment_host_single_pane, container,false)
 
         val master = childFragmentManager.findFragmentById(R.id.master_nav_fragment) as NavHostFragment?
         master?.navController?.setGraph(R.navigation.master, arguments)
@@ -36,20 +36,17 @@ class MasterDetailHostFragment : Fragment() {
 
 
     companion object {
-        val TAB_NUMBER = "tab_number"
-        val SOME_EXTRA_INFO  = "some_extra_info"
+        private const val TAB_NUMBER = "tab_number"
+        private const val SOME_EXTRA_INFO  = "some_extra_info"
 
         fun newInstance(tabNumber: Int): MasterDetailHostFragment {
-            val fragment = MasterDetailHostFragment()
 
-            val bundle = Bundle().apply {
-                putInt(TAB_NUMBER, tabNumber)
-                putString(SOME_EXTRA_INFO, "I am probably on a tablet")
+            return MasterDetailHostFragment().apply {
+                arguments = bundleOf(
+                        Pair(TAB_NUMBER, tabNumber),
+                        Pair(SOME_EXTRA_INFO, "I am probably on a tablet")
+                )
             }
-
-            fragment.arguments = bundle
-
-            return fragment
         }
     }
 }

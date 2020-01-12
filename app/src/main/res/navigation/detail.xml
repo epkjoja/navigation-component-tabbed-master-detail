@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/detail_fragment"
-        android:name="com.myapplication.DetailFragment"
+        android:name="com.myapplication.fragment.DetailFragment"
         android:label="DetailFragment">
 
         <argument
@@ -16,11 +16,5 @@
             android:name="some_extra_info"
             app:argType="string" />
     </fragment>
-
-    <argument
-        android:name="tab_number"
-        android:defaultValue="1" />
-    <argument android:defaultValue="joja"
-        android:name="some_extra_info" />
 
 </navigation>

@@ -1,20 +1,23 @@
-package com.myapplication
+package com.myapplication.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.myapplication.R
 import kotlinx.android.synthetic.main.fragment_master.view.*
 import timber.log.Timber
 
 
 class MasterFragment : Fragment() {
 
-    // Must NOT be private! Args passing will fail otherwise
+    // Must NOT be private! Args passing will fail in that case
     val args: MasterFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -30,7 +33,7 @@ class MasterFragment : Fragment() {
         return rootView
     }
 
-    fun openDetail() {
+    private fun openDetail() {
 
         val isTablet = context?.resources?.getBoolean(R.bool.isTablet) ?: false
 
@@ -39,19 +42,23 @@ class MasterFragment : Fragment() {
             swapDetailFragment()
         } else {
             // On phones, launch a new detail activity
-            findNavController().navigate(
-                MasterFragmentDirections.showDetailsFromMaster(args.tabNumber, "I am on a phone")
-            )
+            activity?.findNavController(R.id.content_main)?.navigate(R.id.detail_fragment, getForwardArgs())
+                    //MasterFragmentDirections.showDetailsFromMaster(args.tabNumber, "I am on a phone")
+            //)
         }
     }
 
-    private fun swapDetailFragment() {
+    private fun getForwardArgs(): Bundle {
         val forwardedArguments = args.toBundle()
         forwardedArguments.putString("some_extra_info", "I am on a tablet")
         Timber.d("Args: $forwardedArguments")
 
+        return forwardedArguments
+    }
+
+    private fun swapDetailFragment() {
         val detail = parentFragment?.fragmentManager?.findFragmentById(R.id.detail_nav_fragment) as NavHostFragment?
         // Override the arguments here with whatever we need to produce this detail fragment
-        detail?.navController?.setGraph(R.navigation.detail, forwardedArguments)
+        detail?.navController?.setGraph(R.navigation.detail, getForwardArgs())
     }
 }

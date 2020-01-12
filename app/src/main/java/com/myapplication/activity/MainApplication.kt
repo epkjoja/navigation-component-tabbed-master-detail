@@ -1,7 +1,8 @@
-package com.myapplication
+package com.myapplication.activity
 
 import android.app.Application
 import androidx.annotation.Keep
+import com.myapplication.BuildConfig
 import timber.log.Timber
 
 @Keep
