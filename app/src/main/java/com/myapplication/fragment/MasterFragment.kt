@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.myapplication.R
@@ -39,26 +37,19 @@ class MasterFragment : Fragment() {
 
         if (isTablet) {
             // On tablets, replace the detail fragment with a new-arg'd fragment
-            swapDetailFragment()
+            val detail = parentFragment?.parentFragmentManager?.findFragmentById(R.id.detail_nav_fragment)
+            // Override the arguments here with whatever we need to produce this detail fragment
+            detail?.findNavController()
+                ?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a tablet"))
         } else {
-            // On phones, launch a new detail activity
-            activity?.findNavController(R.id.content_main)?.navigate(R.id.detail_fragment, getForwardArgs())
-                    //MasterFragmentDirections.showDetailsFromMaster(args.tabNumber, "I am on a phone")
-            //)
+            // On phones, find the main navController and navigate to detail fragment
+            activity?.findNavController(R.id.content_main)?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a phone"))
         }
     }
 
-    private fun getForwardArgs(): Bundle {
-        val forwardedArguments = args.toBundle()
-        forwardedArguments.putString("some_extra_info", "I am on a tablet")
-        Timber.d("Args: $forwardedArguments")
-
-        return forwardedArguments
-    }
-
-    private fun swapDetailFragment() {
-        val detail = parentFragment?.fragmentManager?.findFragmentById(R.id.detail_nav_fragment) as NavHostFragment?
-        // Override the arguments here with whatever we need to produce this detail fragment
-        detail?.navController?.setGraph(R.navigation.detail, getForwardArgs())
+    private fun getForwardArgs(info: String): Bundle {
+        return args.toBundle().apply {
+            putString("some_extra_info", info)
+        }
     }
 }

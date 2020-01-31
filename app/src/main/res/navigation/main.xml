@@ -14,6 +14,7 @@
             app:argType="integer" />
     </fragment>
 
+    <!-- Used from master fragment when in portrait mode -->
     <fragment
         android:id="@+id/detail_fragment"
         android:name="com.myapplication.fragment.DetailFragment"

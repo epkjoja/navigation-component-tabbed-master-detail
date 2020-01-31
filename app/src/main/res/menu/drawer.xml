@@ -9,10 +9,6 @@
             android:icon="@android:drawable/ic_menu_camera"
             android:title="Main" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Competitions" />
-        <item
             android:id="@+id/nav_slideshow"
             android:icon="@android:drawable/ic_menu_preferences"
             android:title="Settings" />

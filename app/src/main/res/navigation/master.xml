@@ -14,31 +14,5 @@
             android:name="tab_number"
             app:argType="integer" />
 
-        <!-- This is used for portrait phones to get an explicit detail view -->
-        <action
-            android:id="@+id/show_details_from_master"
-            app:destination="@id/detail_activity">
-
-        </action>
-
     </fragment>
-
-    <!-- This is used for portrait phones to get an explicit detail view -->
-    <activity
-        android:id="@+id/detail_activity"
-        android:name="com.myapplication.activity.DetailActivity"
-        android:label="DetailActivity">
-
-        <argument
-            android:name="tab_number"
-            app:argType="integer" />
-        <argument
-            android:name="some_extra_info"
-            app:argType="string" />
-    </activity>
-
-    <argument
-        android:name="tab_number"
-        android:defaultValue="1" />
-
 </navigation>
