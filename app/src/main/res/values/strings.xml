@@ -2,6 +2,7 @@
     <string name="app_name">My Application</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="fab_description">Send e-mail</string>
 
     <string name="cat_tab_item_label">Tab %d</string>
 
@@ -18,4 +19,9 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="item_detail_fragment">Item detail Fragment</string>
+    <string name="item_detail_extra_info">Item detail extra info</string>
+    <string name="master_fragment">Master Fragment</string>
+    <string name="navigate_to_a_detail_view">Navigate to a detail view</string>
 </resources>
