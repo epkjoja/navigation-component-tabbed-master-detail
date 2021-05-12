@@ -24,4 +24,7 @@
     <string name="item_detail_extra_info">Item detail extra info</string>
     <string name="master_fragment">Master Fragment</string>
     <string name="navigate_to_a_detail_view">Navigate to a detail view</string>
+
+    <string name="master_view_tab_number">Master view, tab number: %1$d</string>
+    <string name="detail_view_tab_number">Detail view, tab number: %1$d</string>
 </resources>

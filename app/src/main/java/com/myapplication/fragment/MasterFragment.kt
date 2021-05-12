@@ -31,7 +31,7 @@ class MasterFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMasterBinding.inflate(inflater, container, false)
 
-        binding.masterText.text = "Master view, tab number: ${args.tabNumber}"
+        binding.masterText.text = getString(R.string.master_view_tab_number, args.tabNumber)
         binding.detailNavigateButton.setOnClickListener { openDetail() }
         return binding.root
     }

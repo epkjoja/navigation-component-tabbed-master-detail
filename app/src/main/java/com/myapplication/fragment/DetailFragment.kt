@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.myapplication.R
 import com.myapplication.databinding.FragmentDetailBinding
 import timber.log.Timber
 
@@ -25,7 +26,7 @@ class DetailFragment : Fragment() {
         Timber.d("onCreateView")
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        binding.detailText.text = "Detail view, tab number: ${args.tabNumber}"
+        binding.detailText.text = getString(R.string.detail_view_tab_number, args.tabNumber)
         binding.detailExtraInfoText.text = args.someExtraInfo
 
         return binding.root
