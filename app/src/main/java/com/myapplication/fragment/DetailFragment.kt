@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.myapplication.R
-import kotlinx.android.synthetic.main.fragment_detail.view.*
+import com.myapplication.databinding.FragmentDetailBinding
 import timber.log.Timber
 
 
@@ -15,15 +14,25 @@ class DetailFragment : Fragment() {
 
     val args: DetailFragmentArgs by navArgs()
 
+    private var _binding: FragmentDetailBinding? = null
+    // This property is only valid between `onCreateView` and `onDestroyView`
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Timber.d("onCreateView")
-        val rootView = inflater.inflate(R.layout.fragment_detail, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        rootView.detail_text.text = "Detail view, tab number: ${args.tabNumber}"
-        rootView.detail_extra_info_text.text = args.someExtraInfo
-        return rootView
+        binding.detailText.text = "Detail view, tab number: ${args.tabNumber}"
+        binding.detailExtraInfoText.text = args.someExtraInfo
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
