@@ -22,10 +22,12 @@
 
         <argument
             android:name="tab_number"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
         <argument
             android:name="some_extra_info"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 
 </navigation>
