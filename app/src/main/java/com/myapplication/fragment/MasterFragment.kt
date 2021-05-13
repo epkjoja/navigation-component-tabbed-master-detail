@@ -19,8 +19,7 @@ class MasterFragment : Fragment() {
     // This property is only valid between `onCreateView` and `onDestroyView`
     private val binding get() = _binding!!
 
-    // Must NOT be private! Args passing will fail in that case
-    val args: MasterFragmentArgs by navArgs()
+    private val args: MasterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

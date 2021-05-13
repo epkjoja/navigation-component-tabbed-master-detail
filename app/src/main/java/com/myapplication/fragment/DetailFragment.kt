@@ -13,7 +13,7 @@ import timber.log.Timber
 
 class DetailFragment : Fragment() {
 
-    val args: DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
 
     private var _binding: FragmentDetailBinding? = null
     // This property is only valid between `onCreateView` and `onDestroyView`
