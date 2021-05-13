@@ -5,7 +5,9 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.content_main)
+        val navController = findNavHostController()
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -49,7 +51,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.content_main)
+        val navController = findNavHostController()
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+}
+
+fun FragmentActivity.findNavHostController(): NavController {
+    val navHostFragment = supportFragmentManager
+        .findFragmentById(R.id.content_main) as NavHostFragment
+    return navHostFragment.navController
 }

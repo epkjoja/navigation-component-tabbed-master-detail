@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.myapplication.R
+import com.myapplication.activity.findNavHostController
 import com.myapplication.databinding.FragmentMasterBinding
 import timber.log.Timber
 
@@ -52,7 +52,7 @@ class MasterFragment : Fragment() {
                 ?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a tablet"))
         } else {
             // On phones, find the main navController and navigate to detail fragment
-            activity?.findNavController(R.id.content_main)?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a phone"))
+            activity?.findNavHostController()?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a phone"))
         }
     }
 
