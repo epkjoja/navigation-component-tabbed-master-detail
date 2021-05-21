@@ -5,30 +5,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.myapplication.R
-import kotlinx.android.synthetic.main.fragment_master.view.*
+import com.myapplication.activity.findNavHostController
+import com.myapplication.databinding.FragmentMasterBinding
 import timber.log.Timber
 
 
 class MasterFragment : Fragment() {
 
-    // Must NOT be private! Args passing will fail in that case
-    val args: MasterFragmentArgs by navArgs()
+    private var _binding: FragmentMasterBinding? = null
+    // This property is only valid between `onCreateView` and `onDestroyView`
+    private val binding get() = _binding!!
+
+    private val args: MasterFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Timber.d("onCreateView, args: $args")
 
-        val rootView = inflater.inflate(R.layout.fragment_master, container, false)
+        // Inflate the layout for this fragment
+        _binding = FragmentMasterBinding.inflate(inflater, container, false)
 
-        rootView.master_text.text = "Master view, tab number: ${args.tabNumber}"
-        rootView.detail_navigate_button.setOnClickListener { openDetail() }
-        return rootView
+        binding.masterText.text = getString(R.string.master_view_tab_number, args.tabNumber)
+        binding.detailNavigateButton.setOnClickListener { openDetail() }
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun openDetail() {
@@ -43,7 +52,7 @@ class MasterFragment : Fragment() {
                 ?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a tablet"))
         } else {
             // On phones, find the main navController and navigate to detail fragment
-            activity?.findNavController(R.id.content_main)?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a phone"))
+            activity?.findNavHostController()?.navigate(R.id.detail_fragment, getForwardArgs("I'm on a phone"))
         }
     }
 
